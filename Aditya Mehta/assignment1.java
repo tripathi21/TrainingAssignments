@@ -1,40 +1,49 @@
 package Assignment;
 
-public class assignment2
+public class assignment1
 {
-	public static void main(String args[])
+	public static void main (String args[])
 	{
-		int array[]= {1,3,4,6,4};
-		int sol=Solution2.solution(array);
-		System.out.println(sol);
+		String abc=Solution1.longestDiverseString(1,1,7);
+		System.out.println(abc);
 	}
 }
-
-class Solution2
+class Solution1
 {
-    public static int solution(int[] A) 
+    public static String longestDiverseString(int a, int b, int c) 
     {
-        int N = A.length;
-        if (N == 3)
-            return 0;
-        int maxEnding = 0;
-        int maxSlice = 0;
-        int[] maxSliceLeft = new int[N];
-        for (int i = 1; i < N-1; i++) {
-            maxEnding = Math.max(0, maxEnding + A[i]);
-            maxSliceLeft[i] = maxEnding;
+        int total=a+b+c;
+        int ca=0,cb=0,cc=0;
+        String s="";
+
+        for(int i=0;i<total;i++)    
+        {
+            if((a>=b && a>=c && ca!=2)||(a>0 && (cb==2||cc==2)))
+            {
+                s=s+"a";
+                ca++;
+                cb=0;
+                cc=0;
+                a--;
+            }
+            else if((b>=a && b>=c && cb!=2)||(b>0 && (ca==2||cc==2)))
+            {
+                s=s+"b";
+                cb++;
+                ca=0;
+                cc=0;
+                b--;
+            }
+            else if((c>=b && c>=a && cc!=2)||(c>0 && (cb==2||ca==2)))
+            {
+                s=s+"c";
+                cc++;
+                ca=0;
+                cb=0;        
+                c--;        
+            }
         }
-        int[] maxSliceRight = new int[N];
-        maxEnding = 0;
-        maxSlice = 0;
-        for (int i = N-2; i >= 1; i--) {
-            maxEnding = Math.max(0, maxEnding + A[i]);
-            maxSliceRight[i] = maxEnding;
-        }
-        int maxDoubleSlice = 0;
-        for (int i = 1; i < N-1; i++) {
-            maxDoubleSlice = Math.max(maxDoubleSlice, maxSliceLeft[i-1] + maxSliceRight[i+1]);
-        }
-        return maxDoubleSlice;
+
+            return s;
     }
 }
